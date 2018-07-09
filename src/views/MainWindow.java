@@ -5,10 +5,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+
+import views.components.ImagePanel;
+import javax.swing.BoxLayout;
 
 public class MainWindow extends JFrame {
 
@@ -51,15 +56,40 @@ public class MainWindow extends JFrame {
 		setContentPane(contentPane);
 		
 		HeaderPanel();
-		
+		NavigationPanel();
+		MainPanel();
 	}
 	
 	private void HeaderPanel() {
 		JPanel hPanel = new JPanel();
 		hPanel.setBorder(new LineBorder(Color.GRAY, 5));
 		hPanel.setPreferredSize(new Dimension(0,150));
-		
 		this.contentPane.add(hPanel, BorderLayout.NORTH);
+		hPanel.setLayout(new BoxLayout(hPanel, BoxLayout.X_AXIS));
+		{
+			ImagePanel TitlePanel = new ImagePanel(
+					new ImageIcon("assets/TitleImg.jpg").getImage());
+			hPanel.add(TitlePanel);
+		}
+		{
+			ImagePanel LogoPanel = new ImagePanel(
+					new ImageIcon("assets/LogoImg.jpg").getImage());
+			LogoPanel.setPreferredSize(new Dimension(0,150));
+			LogoPanel.setBorder(new MatteBorder(0,5,0,0,Color.GRAY));
+			hPanel.add(LogoPanel);
+		}
 	}
-
+	
+	private void NavigationPanel() {
+			JPanel panel = new JPanel();
+			panel.setPreferredSize(new Dimension(400,0));
+			panel.setBorder(new LineBorder(Color.GRAY, 5));
+			contentPane.add(panel, BorderLayout.WEST);
+	}
+	
+	private void MainPanel() {
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(Color.GRAY, 5));
+		contentPane.add(panel, BorderLayout.CENTER);
+}
 }
