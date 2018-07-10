@@ -27,6 +27,8 @@ public class MainWindow extends JFrame {
 	private final int panelSpace = 20;
 	private final Color windowBackground = new Color(100,100,100);
 	
+	private JPanel contentPane;
+	
 	/* 
 	 * -1 -> no one logged
 	 *  1 -> faculty of Engineering logged
@@ -35,7 +37,13 @@ public class MainWindow extends JFrame {
 	 */
 	private static int loggedUser = -1;
 	
-	private JPanel contentPane;
+	public static int getLoggedUser() {
+		return loggedUser;
+	}
+
+	public static void setLoggedUser(int loggedUser) {
+		MainWindow.loggedUser = loggedUser;
+	}
 
 	/**
 	 * Launch the application.

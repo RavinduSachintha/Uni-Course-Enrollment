@@ -24,6 +24,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPasswordField;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class LoginDialog extends JDialog {
@@ -115,8 +116,18 @@ public class LoginDialog extends JDialog {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String user = cmbUser.getSelectedItem().toString();
+				int userIndex = cmbUser.getSelectedIndex();
 				String password = pwdPassword.getPassword().toString();
-				loginController.initaliseUser(user, password);
+				loginController.initaliseViewUser(user, password);
+				try {
+					loginController.initaliseDbUser(user);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if(loginController.validateUser()) {
+					MainWindow.setLoggedUser(userIndex);
+				}
 			}
 		});
 		
