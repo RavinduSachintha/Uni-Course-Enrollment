@@ -6,14 +6,17 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import views.components.ImagePanel;
 import javax.swing.BoxLayout;
+import java.awt.GridLayout;
 
 public class MainWindow extends JFrame {
 
@@ -74,7 +77,7 @@ public class MainWindow extends JFrame {
 		{
 			ImagePanel LogoPanel = new ImagePanel(
 					new ImageIcon("assets/LogoImg.jpg").getImage());
-			LogoPanel.setPreferredSize(new Dimension(0,150));
+			LogoPanel.setPreferredSize(new Dimension(0,0));
 			LogoPanel.setBorder(new MatteBorder(0,5,0,0,Color.GRAY));
 			hPanel.add(LogoPanel);
 		}
@@ -83,13 +86,50 @@ public class MainWindow extends JFrame {
 	private void NavigationPanel() {
 			JPanel panel = new JPanel();
 			panel.setPreferredSize(new Dimension(400,0));
-			panel.setBorder(new LineBorder(Color.GRAY, 5));
+			panel.setBorder(new CompoundBorder(
+					new LineBorder(Color.GRAY, 5),
+					new EmptyBorder(5,5,5,5)));
 			contentPane.add(panel, BorderLayout.WEST);
+			panel.setLayout(new GridLayout(4, 2, 5, 5));
+			
+			{
+				JButton btnNewButton = new JButton("New button");
+				panel.add(btnNewButton);
+			}
+			{
+				JButton btnNewButton_2 = new JButton("New button");
+				panel.add(btnNewButton_2);
+			}
+			{
+				JButton btnNewButton_4 = new JButton("New button");
+				panel.add(btnNewButton_4);
+			}
+			{
+				JButton btnNewButton_5 = new JButton("New button");
+				panel.add(btnNewButton_5);
+			}
+			{
+				JButton btnNewButton_3 = new JButton("New button");
+				panel.add(btnNewButton_3);
+			}
+			{
+				JButton btnNewButton_1 = new JButton("New button");
+				panel.add(btnNewButton_1);
+			}
+			{
+				JButton btnNewButton_6 = new JButton("New button");
+				panel.add(btnNewButton_6);
+			}
+			{
+				JButton btnNewButton_7 = new JButton("New button");
+				panel.add(btnNewButton_7);
+			}
 	}
 	
 	private void MainPanel() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.GRAY, 5));
 		contentPane.add(panel, BorderLayout.CENTER);
-}
+		
+	}
 }
