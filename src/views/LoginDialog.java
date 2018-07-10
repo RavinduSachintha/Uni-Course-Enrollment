@@ -31,23 +31,11 @@ public class LoginDialog extends JDialog {
 	private JPasswordField pwdPassword;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			LoginDialog dialog = new LoginDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public LoginDialog() {
-		setBounds(100, 100, 374, 407);
+		setResizable(false);
+		setBounds(700, 250, 365, 407);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.GRAY);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -118,5 +106,18 @@ public class LoginDialog extends JDialog {
             }
 		});
 		contentPanel.add(pwdPassword);
+	}
+	
+	/**
+	 * Launch the application.
+	 */
+	public void runLoginDialog() {
+		try {
+			LoginDialog dialog = new LoginDialog();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -27,6 +27,8 @@ public class MainWindow extends JFrame {
 	private final int panelSpace = 20;
 	private final Color windowBackground = new Color(100,100,100);
 	
+	private static int loggedUser = -1; // -1 for no one logged
+	
 	private JPanel contentPane;
 
 	/**
@@ -39,6 +41,11 @@ public class MainWindow extends JFrame {
 					MainWindow frame = new MainWindow();
 					frame.setVisible(true);
 					frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+					
+					if(loggedUser == -1) {
+						LoginDialog dialog = new LoginDialog();
+						dialog.runLoginDialog();
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
