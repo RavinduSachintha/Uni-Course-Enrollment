@@ -17,9 +17,14 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
+
+import controllers.LoginController;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPasswordField;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LoginDialog extends JDialog {
 
@@ -28,36 +33,40 @@ public class LoginDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JPasswordField pwdPassword;
+	
+	private LoginController loginController = new LoginController();
 
 	/**
 	 * Create the dialog.
 	 */
 	public LoginDialog() {
+		
 		setResizable(false);
 		setBounds(700, 250, 365, 407);
 		getContentPane().setLayout(new BorderLayout());
+		
 		contentPanel.setBackground(Color.GRAY);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		{
-			JLabel lblTitle = new JLabel("LOGIN");
-			lblTitle.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-			lblTitle.setOpaque(true);
-			lblTitle.setBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));
-			lblTitle.setBounds(10, 11, 338, 129);
-			lblTitle.setFont(new Font("Times New Roman", Font.BOLD, 76));
-			lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-			contentPanel.add(lblTitle);
-		}
+
+		JLabel lblTitle = new JLabel("LOGIN");
+		lblTitle.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		lblTitle.setOpaque(true);
+		lblTitle.setBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));
+		lblTitle.setBounds(10, 11, 338, 129);
+		lblTitle.setFont(new Font("Times New Roman", Font.BOLD, 76));
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JComboBox<Object> cmbUser = new JComboBox<Object>();
-		cmbUser.setModel(new DefaultComboBoxModel<Object>(new String[] {"Faculty of Engineering", "Faculty of Computer Science", "Faculty of Business Management"}));
+		cmbUser.setModel(new DefaultComboBoxModel<Object>(
+				new String[] {
+						"Faculty of Engineering", 
+						"Faculty of Computer Science", 
+						"Faculty of Business Management"}));
 		cmbUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmbUser.setBorder(new LineBorder(new Color(0, 0, 0)));
 		cmbUser.setBounds(114, 175, 234, 28);
-		contentPanel.add(cmbUser);
 		
 		JLabel lblUser = new JLabel("User");
 		lblUser.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -66,46 +75,59 @@ public class LoginDialog extends JDialog {
 		lblUser.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblUser.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUser.setBounds(10, 175, 94, 28);
-		contentPanel.add(lblUser);
-		{
-			JLabel lblPassword = new JLabel("Password");
-			lblPassword.setBorder(new LineBorder(new Color(0, 0, 0)));
-			lblPassword.setOpaque(true);
-			lblPassword.setBackground(Color.LIGHT_GRAY);
-			lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPassword.setBounds(10, 232, 94, 28);
-			contentPanel.add(lblPassword);
-		}
+
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setBorder(new LineBorder(new Color(0, 0, 0)));
+		lblPassword.setOpaque(true);
+		lblPassword.setBackground(Color.LIGHT_GRAY);
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPassword.setBounds(10, 232, 94, 28);
 		
 		JButton btnLogin = new JButton("Log In");
 		btnLogin.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnLogin.setBounds(54, 301, 103, 33);
-		contentPanel.add(btnLogin);
 		
 		JButton btnClear = new JButton("Clear");
 		btnClear.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnClear.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnClear.setBounds(199, 301, 103, 33);
-		contentPanel.add(btnClear);
 		
-		pwdPassword = new JPasswordField(8);
+		JPasswordField pwdPassword = new JPasswordField(8);
 		pwdPassword.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		pwdPassword.setMargin(new Insets(2, 10, 2, 2));
 		pwdPassword.setBounds(114, 232, 234, 28);
+		
 		PlainDocument document = (PlainDocument)pwdPassword.getDocument();
 		document.setDocumentFilter(new DocumentFilter() {
 			@Override
-			public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+			public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) 
+					throws BadLocationException {
                 String string = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
-
                 if (string.length() <= 8) {
-                    super.replace(fb, offset, length, text, attrs); //To change body of generated methods, choose Tools | Templates.
+                    super.replace(fb, offset, length, text, attrs);
                 }
             }
 		});
+		
+		// Event Handling
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String user = cmbUser.getSelectedItem().toString();
+				String password = pwdPassword.getPassword().toString();
+				loginController.initaliseUser(user, password);
+			}
+		});
+		
+		// Components Adding
+		contentPanel.add(lblTitle);
+		contentPanel.add(lblUser);
+		contentPanel.add(cmbUser);
+		contentPanel.add(lblPassword);
 		contentPanel.add(pwdPassword);
+		contentPanel.add(btnLogin);
+		contentPanel.add(btnClear);
 	}
 	
 	/**

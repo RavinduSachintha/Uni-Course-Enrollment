@@ -27,7 +27,13 @@ public class MainWindow extends JFrame {
 	private final int panelSpace = 20;
 	private final Color windowBackground = new Color(100,100,100);
 	
-	private static int loggedUser = -1; // -1 for no one logged
+	/* 
+	 * -1 -> no one logged
+	 *  1 -> faculty of Engineering logged
+	 *  2 -> faculty of Computer Science logged
+	 *  3 -> faculty of Business Management logged
+	 */
+	private static int loggedUser = -1;
 	
 	private JPanel contentPane;
 
