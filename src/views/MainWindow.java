@@ -17,6 +17,9 @@ import javax.swing.border.MatteBorder;
 import views.components.ImagePanel;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class MainWindow extends JFrame {
 
@@ -89,8 +92,8 @@ public class MainWindow extends JFrame {
 		JPanel hPanel = new JPanel();
 		hPanel.setBorder(new LineBorder(Color.GRAY, 5));
 		hPanel.setPreferredSize(new Dimension(0,150));
-		this.contentPane.add(hPanel, BorderLayout.NORTH);
 		hPanel.setLayout(new BoxLayout(hPanel, BoxLayout.X_AXIS));
+		
 		{
 			ImagePanel TitlePanel = new ImagePanel(
 					new ImageIcon("assets/TitleImg.jpg").getImage());
@@ -103,6 +106,8 @@ public class MainWindow extends JFrame {
 			LogoPanel.setBorder(new MatteBorder(0,5,0,0,Color.GRAY));
 			hPanel.add(LogoPanel);
 		}
+		
+		this.contentPane.add(hPanel, BorderLayout.NORTH);
 	}
 	
 	private void NavigationPanel() {
@@ -111,7 +116,6 @@ public class MainWindow extends JFrame {
 			panel.setBorder(new CompoundBorder(
 					new LineBorder(Color.GRAY, 5),
 					new EmptyBorder(5,5,5,5)));
-			contentPane.add(panel, BorderLayout.WEST);
 			panel.setLayout(new GridLayout(4, 2, 5, 5));
 			
 			{
@@ -146,12 +150,42 @@ public class MainWindow extends JFrame {
 				JButton btnNewButton_7 = new JButton("New button");
 				panel.add(btnNewButton_7);
 			}
+			
+			this.contentPane.add(panel, BorderLayout.WEST);
 	}
 	
 	private void MainPanel() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.GRAY, 5));
-		contentPane.add(panel, BorderLayout.CENTER);
+		panel.setLayout(new BorderLayout(0, 0));
 		
+		{
+			JLabel lblLoggedUser = new JLabel("No one Logged");
+			/*
+			switch(MainWindow.loggedUser) {
+			case -1:
+				lblLoggedUser.setText("No one Logged");
+				break;
+			case 1:
+				lblLoggedUser.setText("Faculty of Engineering Logged");
+				break;
+			case 2:
+				lblLoggedUser.setText("Faculty of Computer Science Logged");
+				break;
+			case 3:
+				lblLoggedUser.setText("Faculty of Business Management Logged");
+				break;
+			}
+			*/
+			lblLoggedUser.setBorder(new EmptyBorder(0, 0, 0, 20));
+			lblLoggedUser.setPreferredSize(new Dimension(72, 40));
+			lblLoggedUser.setOpaque(true);
+			lblLoggedUser.setBackground(new Color(210, 180, 140));
+			lblLoggedUser.setHorizontalAlignment(SwingConstants.RIGHT);
+			lblLoggedUser.setFont(new Font("Tahoma", Font.ITALIC, 20));
+			panel.add(lblLoggedUser, BorderLayout.NORTH);
+		}
+		
+		this.contentPane.add(panel, BorderLayout.CENTER);
 	}
 }

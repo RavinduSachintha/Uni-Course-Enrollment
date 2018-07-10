@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.UIManager;
@@ -117,16 +118,24 @@ public class LoginDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				String user = cmbUser.getSelectedItem().toString();
 				int userIndex = cmbUser.getSelectedIndex();
-				String password = pwdPassword.getPassword().toString();
+				String password = new String(pwdPassword.getPassword());
 				loginController.initaliseViewUser(user, password);
 				try {
 					loginController.initaliseDbUser(user);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				//System.out.println(loginController.validateUser());
 				if(loginController.validateUser()) {
 					MainWindow.setLoggedUser(userIndex);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(
+							contentPanel, 
+							"You have entered a wrong password\nTry again...", 
+							"Wrong Password", 
+							JOptionPane.ERROR_MESSAGE);
+					pwdPassword.setText("");
 				}
 			}
 		});

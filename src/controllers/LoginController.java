@@ -27,8 +27,8 @@ public class LoginController {
 	}
 	
 	public boolean validateUser() {
-		if(userViewObj.getUser() == userDbObj.getUser() 
-				&& userViewObj.getPassword() == userDbObj.getPassword())
+		if(userViewObj.getUser().equals(userDbObj.getUser())
+				&& userViewObj.getPassword().equals(userDbObj.getPassword()))
 			return true;
 		else
 			return false;
