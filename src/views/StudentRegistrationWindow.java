@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import com.toedter.calendar.JDateChooser;
 
 public class StudentRegistrationWindow extends JFrame {
 
@@ -267,6 +268,17 @@ public class StudentRegistrationWindow extends JFrame {
 		lblStudentBasicDetails.setBackground(Color.LIGHT_GRAY);
 		lblStudentBasicDetails.setBounds(10, 11, 454, 20);
 		panel.add(lblStudentBasicDetails);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(344, 104, 120, 20);
+		panel.add(dateChooser);
+		
+		JLabel lblBirthday = new JLabel("Birthday");
+		lblBirthday.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblBirthday.setBorder(new EmptyBorder(0, 5, 0, 0));
+		lblBirthday.setBackground(Color.LIGHT_GRAY);
+		lblBirthday.setBounds(248, 104, 86, 20);
+		panel.add(lblBirthday);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 525, 474, 35);
