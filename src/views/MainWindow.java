@@ -1,6 +1,7 @@
 package views;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -17,6 +18,9 @@ import javax.swing.border.MatteBorder;
 import views.components.ImagePanel;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -119,8 +123,16 @@ public class MainWindow extends JFrame {
 			panel.setLayout(new GridLayout(4, 2, 5, 5));
 			
 			{
-				JButton btnNewButton = new JButton("New button");
-				panel.add(btnNewButton);
+				JButton btnStudents = new JButton("Student Details");
+				btnStudents.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						StudentRegistrationWindow studentReg = new StudentRegistrationWindow();
+						studentReg.setVisible(true);
+					}
+				});
+				panel.add(btnStudents);
 			}
 			{
 				JButton btnNewButton_2 = new JButton("New button");
@@ -184,6 +196,14 @@ public class MainWindow extends JFrame {
 			lblLoggedUser.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblLoggedUser.setFont(new Font("Tahoma", Font.ITALIC, 20));
 			panel.add(lblLoggedUser, BorderLayout.NORTH);
+		}
+		
+		{
+			JPanel cardPanel = new JPanel();
+			cardPanel.setBorder(new EmptyBorder(5,5,5,5));
+			cardPanel.setLayout(new CardLayout());
+			
+			panel.add(cardPanel,BorderLayout.CENTER);
 		}
 		
 		this.contentPane.add(panel, BorderLayout.CENTER);

@@ -127,7 +127,7 @@ public class LoginDialog extends JDialog {
 				}
 				//System.out.println(loginController.validateUser());
 				if(loginController.validateUser()) {
-					MainWindow.setLoggedUser(userIndex);
+					MainWindow.setLoggedUser(userIndex+1);
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(
@@ -137,6 +137,14 @@ public class LoginDialog extends JDialog {
 							JOptionPane.ERROR_MESSAGE);
 					pwdPassword.setText("");
 				}
+			}
+		});
+		
+		btnClear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pwdPassword.setText("");
+				
 			}
 		});
 		
