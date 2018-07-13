@@ -32,6 +32,56 @@ public class Student {
 		this.phone = phone;
 		
 	}
+
+	public String getStdID() {
+		return stdID;
+	}
+
+	public String getNic() {
+		return nic;
+	}
+
+	public String getFname() {
+		return fname;
+	}
+
+	public String getMname() {
+		return mname;
+	}
+
+	public String getLname() {
+		return lname;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public String getAddressLine1() {
+		return addressLine1;
+	}
+
+	public String getAddressLine2() {
+		return addressLine2;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public String getPemail() {
+		return pemail;
+	}
+
+	public String getUemail() {
+		return uemail;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+	
+	
 	
 	
 }

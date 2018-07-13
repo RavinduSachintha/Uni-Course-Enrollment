@@ -1,11 +1,15 @@
 package controllers;
 
+import java.sql.SQLException;
+
+import controllers.db.StudentDbController;
 import models.Student;
 
 public class StudentController {
 	
 	private Student studentViewObj;
-	private Student studnetDbObj;
+	private Student studentDbObj;
+	private StudentDbController sdc;
 	
 	public void initaliseViewStudent(String stdID, String nic, String fname, String mname, String lname,
 			String gender, String addressLine1, String addressLine2, String city, 
@@ -17,9 +21,11 @@ public class StudentController {
 		return studentViewObj;
 	}
 	
-	public Student getStudnetDbObj() {
-		return studnetDbObj;
+	public Student getStudentDbObj() {
+		return studentDbObj;
 	}
 	
-	
+	public void registerStudent() throws SQLException {
+		sdc.insertStudent(this.studentViewObj);
+	}
 }
