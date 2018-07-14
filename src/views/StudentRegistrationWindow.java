@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
@@ -15,6 +18,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import com.toedter.calendar.JDateChooser;
+
+import controllers.StudentController;
 
 public class StudentRegistrationWindow extends JFrame {
 
@@ -37,11 +42,27 @@ public class StudentRegistrationWindow extends JFrame {
 	private JTextField txtGurName;
 	private JTextField txtGurNIC;
 	private JTextField txtGurPhone;
+	
+	private StudentController studentController;
+	private String stdID;
+	private String nic;
+	private String fname;
+	private String mname;
+	private String lname;
+	private String gender;
+	private String addressLine1;
+	private String addressLine2;
+	private String city;
+	private String pemail;
+	private String uemail;
+	private String phone;
 
 	/**
 	 * Create the frame.
 	 */
 	public StudentRegistrationWindow() {
+		
+		studentController = new StudentController();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(600, 100, 500, 600);
@@ -250,6 +271,36 @@ public class StudentRegistrationWindow extends JFrame {
 		JButton btnClear = new JButton("Clear");
 		
 		JButton btnRegister = new JButton("Register");
+		btnRegister.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/*
+				stdID = txtStdID.getText();
+				nic = txtNIC.getText();
+				fname = txtFname.getText();
+				mname = txtMname.getText();
+				lname = txtLname.getText();
+				gender = "m"; // ####
+				addressLine1 = txtAddLine1.getText();
+				addressLine2 = txtAddLine2.getText();
+				city = txtCity.getText();
+				pemail = txtPemail.getText();
+				uemail = txtUemail.getText();
+				phone = txtPhone.getText();
+				
+				studentController.initaliseViewStudent(stdID, nic, fname, mname, lname, gender, addressLine1, addressLine2, city, pemail, uemail, phone);
+				try {
+					studentController.registerStudent();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				*/
+				
+			}
+		});
+		
 		
 		// Components Adding
 		panel.add(lblNewLabel);
