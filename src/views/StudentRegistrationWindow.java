@@ -5,22 +5,32 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import javax.swing.border.LineBorder;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.DocumentFilter;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import com.toedter.calendar.JDateChooser;
 
 import controllers.StudentController;
+import views.components.UppercaseDocumentFilter;
 
+/**
+ * @author Sachintha
+ *
+ */
 public class StudentRegistrationWindow extends JFrame {
 
 	/**
@@ -42,6 +52,10 @@ public class StudentRegistrationWindow extends JFrame {
 	private JTextField txtGurName;
 	private JTextField txtGurNIC;
 	private JTextField txtGurPhone;
+	private JRadioButton rdbtnMale;
+	private JRadioButton rdbtnFemale;
+	private ButtonGroup btngrpGender;
+	private JDateChooser dateChooser;
 	
 	private StudentController studentController;
 	private String stdID;
@@ -50,19 +64,25 @@ public class StudentRegistrationWindow extends JFrame {
 	private String mname;
 	private String lname;
 	private String gender;
+	private Date dob;
 	private String addressLine1;
 	private String addressLine2;
 	private String city;
 	private String pemail;
 	private String uemail;
 	private String phone;
+	
+	private boolean areEmptyFields;
+	private DocumentFilter uppercaseFilter;	
 
 	/**
 	 * Create the frame.
 	 */
 	public StudentRegistrationWindow() {
 		
-		studentController = new StudentController();
+		this.studentController = new StudentController();
+		this.areEmptyFields = false;
+		this.uppercaseFilter = new UppercaseDocumentFilter();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(600, 100, 500, 600);
@@ -96,6 +116,7 @@ public class StudentRegistrationWindow extends JFrame {
 		txtFname = new JTextField();
 		txtFname.setBounds(106, 42, 120, 20);
 		txtFname.setColumns(10);
+		((AbstractDocument) txtFname.getDocument()).setDocumentFilter(uppercaseFilter);
 		
 		JLabel lblLastName = new JLabel("Last Name");
 		lblLastName.setBounds(10, 104, 86, 20);
@@ -106,6 +127,7 @@ public class StudentRegistrationWindow extends JFrame {
 		txtLname = new JTextField();
 		txtLname.setBounds(106, 104, 120, 20);
 		txtLname.setColumns(10);
+		((AbstractDocument) txtLname.getDocument()).setDocumentFilter(uppercaseFilter);
 		
 		JLabel lblMiddleName = new JLabel("Middle Name");
 		lblMiddleName.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -116,6 +138,7 @@ public class StudentRegistrationWindow extends JFrame {
 		txtMname = new JTextField();
 		txtMname.setColumns(10);
 		txtMname.setBounds(106, 73, 120, 20);
+		((AbstractDocument) txtMname.getDocument()).setDocumentFilter(uppercaseFilter);
 		
 		JLabel lblStudentId = new JLabel("Student ID");
 		lblStudentId.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -126,6 +149,7 @@ public class StudentRegistrationWindow extends JFrame {
 		txtStdID = new JTextField();
 		txtStdID.setColumns(10);
 		txtStdID.setBounds(344, 42, 120, 20);
+		((AbstractDocument) txtStdID.getDocument()).setDocumentFilter(uppercaseFilter);
 		
 		JLabel lblNicNo = new JLabel("NIC No");
 		lblNicNo.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -136,6 +160,7 @@ public class StudentRegistrationWindow extends JFrame {
 		txtNIC = new JTextField();
 		txtNIC.setColumns(10);
 		txtNIC.setBounds(344, 73, 120, 20);
+		((AbstractDocument) txtNIC.getDocument()).setDocumentFilter(uppercaseFilter);
 		
 		JLabel lblGender = new JLabel("Gender");
 		lblGender.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -143,11 +168,17 @@ public class StudentRegistrationWindow extends JFrame {
 		lblGender.setBackground(Color.LIGHT_GRAY);
 		lblGender.setBounds(10, 135, 86, 20);
 		
-		JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBounds(106, 136, 59, 20);
+		rdbtnMale.setSelected(true);
 		
-		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBounds(167, 136, 59, 20);
+		
+		// Group the radio buttons
+		btngrpGender = new ButtonGroup();
+		btngrpGender.add(rdbtnMale);
+		btngrpGender.add(rdbtnFemale);
 		
 		JLabel lblAddressLine = new JLabel("Address Line 01");
 		lblAddressLine.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -170,14 +201,17 @@ public class StudentRegistrationWindow extends JFrame {
 		txtAddLine1 = new JTextField();
 		txtAddLine1.setColumns(10);
 		txtAddLine1.setBounds(140, 166, 324, 20);
+		((AbstractDocument) txtAddLine1.getDocument()).setDocumentFilter(uppercaseFilter);
 		
 		txtAddLine2 = new JTextField();
 		txtAddLine2.setColumns(10);
 		txtAddLine2.setBounds(140, 197, 324, 20);
+		((AbstractDocument) txtAddLine2.getDocument()).setDocumentFilter(uppercaseFilter);
 		
 		txtCity = new JTextField();
 		txtCity.setColumns(10);
 		txtCity.setBounds(140, 228, 174, 20);
+		((AbstractDocument) txtCity.getDocument()).setDocumentFilter(uppercaseFilter);
 		
 		JLabel lblPersonalEmail = new JLabel("Personal Email");
 		lblPersonalEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -218,6 +252,7 @@ public class StudentRegistrationWindow extends JFrame {
 		txtGurName = new JTextField();
 		txtGurName.setColumns(10);
 		txtGurName.setBounds(106, 383, 358, 20);
+		((AbstractDocument) txtGurName.getDocument()).setDocumentFilter(uppercaseFilter);
 		
 		JLabel label = new JLabel("NIC No");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -228,6 +263,7 @@ public class StudentRegistrationWindow extends JFrame {
 		txtGurNIC = new JTextField();
 		txtGurNIC.setColumns(10);
 		txtGurNIC.setBounds(106, 414, 120, 20);
+		((AbstractDocument) txtGurNIC.getDocument()).setDocumentFilter(uppercaseFilter);
 		
 		JLabel lblPhoneNo_1 = new JLabel("Phone No");
 		lblPhoneNo_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -255,33 +291,51 @@ public class StudentRegistrationWindow extends JFrame {
 		lblStudentBasicDetails.setBackground(Color.LIGHT_GRAY);
 		lblStudentBasicDetails.setBounds(10, 11, 454, 20);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(344, 104, 120, 20);
+		JLabel lblDateOfBirth = new JLabel("Date of Birth");
+		lblDateOfBirth.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDateOfBirth.setBorder(new EmptyBorder(0, 5, 0, 0));
+		lblDateOfBirth.setBackground(Color.LIGHT_GRAY);
+		lblDateOfBirth.setBounds(248, 104, 86, 20);
 		
-		JLabel lblBirthday = new JLabel("Birthday");
-		lblBirthday.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBirthday.setBorder(new EmptyBorder(0, 5, 0, 0));
-		lblBirthday.setBackground(Color.LIGHT_GRAY);
-		lblBirthday.setBounds(248, 104, 86, 20);
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(344, 104, 120, 20);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 525, 474, 35);
 		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/*txtStdID.setText(null);
+				txtNIC.setText(null);
+				txtFname.setText(null);
+				txtMname.setText(null);
+				txtLname.setText(null);
+				txtAddLine1.setText(null);
+				txtAddLine2.setText(null);;
+				txtCity.getText();
+				pemail = txtPemail.getText();
+				uemail = txtUemail.getText();
+				phone = txtPhone.getText();
+				*/
+			}
+		});
 		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*
 				stdID = txtStdID.getText();
 				nic = txtNIC.getText();
 				fname = txtFname.getText();
 				mname = txtMname.getText();
 				lname = txtLname.getText();
-				gender = "m"; // ####
+				gender = selectGender();
+				selectDob();
 				addressLine1 = txtAddLine1.getText();
 				addressLine2 = txtAddLine2.getText();
 				city = txtCity.getText();
@@ -289,18 +343,26 @@ public class StudentRegistrationWindow extends JFrame {
 				uemail = txtUemail.getText();
 				phone = txtPhone.getText();
 				
-				studentController.initaliseViewStudent(stdID, nic, fname, mname, lname, gender, addressLine1, addressLine2, city, pemail, uemail, phone);
-				try {
-					studentController.registerStudent();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				checkInputs();
+				
+				if(areEmptyFields) {
+					JOptionPane.showMessageDialog(
+							contentPane, 
+							"There is some empty fields.\nEvery field must be filled.\nTry again...", 
+							"Empty Fields", 
+							JOptionPane.ERROR_MESSAGE);
+					areEmptyFields = false;
+				} else {
+					studentController.initaliseViewStudent(stdID, nic, fname, mname, lname, gender, dob, addressLine1, addressLine2, city, pemail, uemail, phone);
+					try {
+						studentController.registerStudent();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
 				}
-				*/
 				
 			}
-		});
-		
+		});		
 		
 		// Components Adding
 		panel.add(lblNewLabel);
@@ -336,7 +398,7 @@ public class StudentRegistrationWindow extends JFrame {
 		panel.add(txtGurPhone);
 		panel.add(lblParentGuardian);
 		panel.add(lblStudentBasicDetails);
-		panel.add(dateChooser);
+		panel.add(lblDateOfBirth);
 		panel.add(dateChooser);
 		panel_1.add(btnClear);
 		panel_1.add(btnRegister);
@@ -345,4 +407,43 @@ public class StudentRegistrationWindow extends JFrame {
 		contentPane.add(panel_1);
 		
 	}
+	
+//	Return function for gender selection using radio buttons
+	private String selectGender() { 
+		if(rdbtnMale.isSelected()) {
+			return "m";
+		} else {
+			return "f";
+		}
+	}
+	
+//	Return function for Date of birth using JDateChooser
+	private void selectDob() {
+		java.util.Date day = dateChooser.getDate();
+		if(day == null) {
+			areEmptyFields = true;
+		} else {
+			this.dob = new Date(day.getTime());
+		}
+	}
+	
+//	Inputs error checking function
+	private void checkInputs() {
+		if(checkEmpty()) {
+			areEmptyFields = true;
+		} else {
+			areEmptyFields = false;
+		}
+	}
+	
+//	Check input empty fields
+	private boolean checkEmpty() {
+		if(areEmptyFields || stdID.isEmpty() || nic.isEmpty() || fname.isEmpty() || mname.isEmpty() || lname.isEmpty() || gender.isEmpty() || 
+				addressLine1.isEmpty() || addressLine2.isEmpty() || city.isEmpty() || pemail.isEmpty() || uemail.isEmpty() || phone.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

@@ -1,5 +1,7 @@
 package models;
 
+import java.sql.Date;
+
 public class Student {
 	
 	private String stdID;
@@ -8,6 +10,7 @@ public class Student {
 	private String mname;
 	private String lname;
 	private String gender;
+	private Date dob;
 	private String addressLine1;
 	private String addressLine2;
 	private String city;
@@ -16,7 +19,7 @@ public class Student {
 	private String phone;
 	
 	public Student(String stdID, String nic, String fname, String mname, String lname,
-			String gender, String addressLine1, String addressLine2, String city, 
+			String gender, Date dob, String addressLine1, String addressLine2, String city, 
 			String pemail, String uemail, String phone) {
 		this.stdID = stdID;
 		this.nic = nic;
@@ -24,6 +27,7 @@ public class Student {
 		this.mname = mname;
 		this.lname = lname;
 		this.gender = gender;
+		this.dob = dob;
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
 		this.city = city;
@@ -79,6 +83,14 @@ public class Student {
 
 	public String getPhone() {
 		return phone;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 	
 }
