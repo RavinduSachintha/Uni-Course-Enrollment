@@ -309,18 +309,20 @@ public class StudentRegistrationWindow extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*txtStdID.setText(null);
-				txtNIC.setText(null);
-				txtFname.setText(null);
-				txtMname.setText(null);
-				txtLname.setText(null);
-				txtAddLine1.setText(null);
-				txtAddLine2.setText(null);;
-				txtCity.getText();
-				pemail = txtPemail.getText();
-				uemail = txtUemail.getText();
-				phone = txtPhone.getText();
-				*/
+				txtStdID.setText("");
+				txtNIC.setText("");
+				txtFname.setText("");
+				txtMname.setText("");
+				txtLname.setText("");
+				txtAddLine1.setText("");
+				txtAddLine2.setText("");
+				txtCity.setText("");
+				txtPemail.setText("");
+				txtUemail.setText("");
+				txtPhone.setText("");
+				txtGurName.setText("");
+				txtGurNIC.setText("");
+				txtGurPhone.setText("");
 			}
 		});
 		
