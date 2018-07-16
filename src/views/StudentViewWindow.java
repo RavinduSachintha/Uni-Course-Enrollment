@@ -3,6 +3,8 @@ package views;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class StudentViewWindow extends JFrame {
 
@@ -29,7 +31,7 @@ public class StudentViewWindow extends JFrame {
 		setResizable(false);
 		setBounds(100, 100, 844, 465);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
 
 	}
-
 }
